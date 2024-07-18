@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { AnimatePresence, motion, Variants } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { cn } from "../lib/utils";
 
-const page = () => {
+const Page = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const handleTitleClick = (index: number) => {
@@ -31,14 +31,10 @@ const page = () => {
               onClick={() => handleTitleClick(index)}
             >
               <div className="border-b w-full p-5 border-x-0 card">
-                <motion.div
-                  className="flex items-center justify-between w-full"
-                >
+                <motion.div className="flex items-center justify-between w-full">
                   <div className="flex items-center text-center gap-5">
                     <h3 className="text-[#5423e7] font-sm">0{index + 1}</h3>
-                    <motion.h2
-                      className="font-medium text-[25px] hover:text-[#5423e7]"
-                    >
+                    <motion.h2 className="font-medium text-[25px] hover:text-[#5423e7]">
                       {item.title}
                     </motion.h2>
                   </div>
@@ -88,7 +84,7 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
 
 const data = [
   {
