@@ -1,113 +1,124 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import React, { useState } from "react";
+import { AnimatePresence, motion, Variants } from "framer-motion";
+import { cn } from "../lib/utils";
+
+const page = () => {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+  const handleTitleClick = (index: number) => {
+    setActiveIndex(activeIndex === index ? null : index);
+  };
+  const variants: Variants = {
+    open: { height: "100%" },
+    closed: { height: 1 },
+  };
+  const paragraphVariant: Variants = {
+    open: { opacity: 100, scale: 1 },
+    closed: { opacity: 0, scale: 0.9 },
+  };
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div className="h-screen w-screen bg-white text-black flex flex-col font-custom items-center justify-center">
+      <div className="flex flex-col max-w-[600px] h-[700px]">
+        <div>
+          {data.map((item, index) => (
+            <motion.button
+              layout
+              key={index}
+              className="w-full flex flex-col px-3 hover:bg-[#f8f8f8] overflow-hidden rounded-md"
+              onClick={() => handleTitleClick(index)}
+            >
+              <div className="border-b w-full p-5 border-x-0 card">
+                <motion.div
+                  className="flex items-center justify-between w-full"
+                >
+                  <div className="flex items-center text-center gap-5">
+                    <h3 className="text-[#5423e7] font-sm">0{index + 1}</h3>
+                    <motion.h2
+                      className="font-medium text-[25px] hover:text-[#5423e7]"
+                    >
+                      {item.title}
+                    </motion.h2>
+                  </div>
+
+                  <div
+                    className={cn(
+                      `${
+                        activeIndex === index
+                          ? "opacity-100 translate-x-[0.3rem]"
+                          : "opacity-0"
+                      } w-5 h-5 rounded-[8px] items-center justify-center flex arrow`
+                    )}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      id="Outline"
+                      viewBox="0 0 24 24"
+                      stroke=""
+                      fill="#5423e7"
+                      width="50"
+                      height="50"
+                    >
+                      <path d="M18,12h0a2,2,0,0,0-.59-1.4l-4.29-4.3a1,1,0,0,0-1.41,0,1,1,0,0,0,0,1.42L15,11H5a1,1,0,0,0,0,2H15l-3.29,3.29a1,1,0,0,0,1.41,1.42l4.29-4.3A2,2,0,0,0,18,12Z" />
+                    </svg>
+                  </div>
+                </motion.div>
+                <motion.div
+                  className="overflow-hidden h-0"
+                  animate={activeIndex === index ? "open" : "closed"}
+                  variants={variants}
+                >
+                  <motion.p
+                    className="mt-4 text-left"
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    animate={activeIndex === index ? "open" : "closed"}
+                    variants={paragraphVariant}
+                  >
+                    {item.content}
+                  </motion.p>
+                </motion.div>
+              </div>
+            </motion.button>
+          ))}
         </div>
       </div>
-
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </div>
   );
-}
+};
+
+export default page;
+
+const data = [
+  {
+    title: "AI-Powered Risk Assessment",
+    content:
+      "Utilize cutting-edge AI algorithms to assess and manage investment risks. Our system analyzes market data",
+  },
+  {
+    title: "Interactive Financial Dashboard",
+    content:
+      "Access a comprehensive dashboard that provides a holistic view of your financial status. Visualize your investments, track your progress towards financial goals, and analyze your spending habits with interactive charts and graphs. Customize your dashboard to focus on what matters most to you",
+  },
+  {
+    title: "Fraud Detection and Alerts",
+    content:
+      "Protect your investments with our advanced fraud detection system. Our AI continuously monitors your accounts for unusual activity and potential security threats. Receive immediate alerts if suspicious transactions are detected, ensuring your financial assets remain secure",
+  },
+  {
+    title: "Investment and Returns",
+    content:
+      "Our investment algorithm analyzes market data, financial indicators, and your personal risk profile to create a diversified portfolio tailored to your goals. It continuously monitors and adjusts your investments to optimize returns",
+  },
+  {
+    title: "Fees and Charges",
+    content:
+      "We charge a management fee that is a percentage of your assets under management, as well as potential transaction fees for specific trades. Please refer to our fee schedule on our website for detailed information",
+  },
+  {
+    title: "Support and Assistance",
+    content:
+      "You can get support by contacting our customer service team via email, phone, or live chat on our website. Our support team is available 24/7 to assist you with any issues or questions",
+  },
+];

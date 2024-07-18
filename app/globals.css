@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -30,4 +32,14 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.card:hover .arrow {
+  opacity: 1 !important;
+  transform: translate(0.3rem, 0rem);
+}
+
+
+.arrow {
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
 }
