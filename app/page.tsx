@@ -34,7 +34,7 @@ const Page = () => {
                 <motion.div className="flex items-center justify-between w-full">
                   <div className="flex items-center text-center gap-5">
                     <h3 className="text-[#5423e7] font-sm">0{index + 1}</h3>
-                    <motion.h2 className="font-medium text-[25px] hover:text-[#5423e7]">
+                    <motion.h2 className="font-medium md:text-2xl text-md hover:text-[#5423e7] ">
                       {item.title}
                     </motion.h2>
                   </div>
