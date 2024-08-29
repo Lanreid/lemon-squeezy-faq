@@ -20,7 +20,7 @@ const Page = () => {
   };
 
   return (
-    <div className="h-screen w-screen bg-white text-black flex flex-col font-custom items-center justify-center">
+    <div className="h-screen w-screen bg-black/30 text-white flex flex-col font-custom items-center justify-center">
       <div className="flex flex-col max-w-[600px] h-[700px]">
         <div>
           {data.map((item, index) => (
